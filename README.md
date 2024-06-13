@@ -1,8 +1,8 @@
-Machine Learning - DataFrame Data Manipulation Using Classification AI Models
+# Machine Learning - DataFrame Data Manipulation Using Classification AI Models
 This project is designed to automate the process of reading data from an Excel file, manipulating the data as needed, and utilising it to train existing Classification Python AI models. The goal is to streamline the workflow from data acquisition to model training, making it easier to leverage machine learning techniques for various applications
 
 
-Required Packages
+# Required Packages
 Following packages are necessary in order for those wanting to fork and/pr clone the repository. A virtual enviroment was created beforehand with the packages installed within
 
 
