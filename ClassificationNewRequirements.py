@@ -19,6 +19,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 
 
+# =========== USER INTERFACE ===============
+import tkinter as tk
+from tkinter import messagebox
+
 
 # =========== IMPORTING | READING DATA & SPLITTING ===============
 # from sklearn.datasets import load_iris
@@ -314,19 +318,77 @@ print("\n\n")
 
 
 
-# ============ User Inputs ============
-sepal_length = float(input("Please enter the length of the sepal in cm: "))
-sepal_width = float(input("Please enter the width of the sepal in cm: "))
-petal_length = float(input("Please enter the length of the petal in cm: "))
-petal_width = float(input("Please enter the width of the petal in cm: "))
+# # ============ User Inputs ============
+# sepal_length = float(input("Please enter the length of the sepal in cm: "))
+# sepal_width = float(input("Please enter the width of the sepal in cm: "))
+# petal_length = float(input("Please enter the length of the petal in cm: "))
+# petal_width = float(input("Please enter the width of the petal in cm: "))
 
 
-print("\n\n")
+# print("\n\n")
 
 
 
-user_input = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
-user_input_scaling = stand_scaler.transform(user_input)
-user_input_prediction = load_model.predict(user_input_scaling)
+# user_input = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+# user_input_scaling = stand_scaler.transform(user_input)
+# user_input_prediction = load_model.predict(user_input_scaling)
 
-print(f"Prediction for user's entered data is: {user_input}. The related flower to input is: {user_input_prediction[0]}")
+# print(f"Prediction for user's entered data is: {user_input}. The related flower to input is: {user_input_prediction[0]}")
+
+
+# ===============================================================================================================================================================================
+# ========================================================================= USER INTERFACE ======================================================================================
+# ===============================================================================================================================================================================
+def flower_prediction():
+    try:
+        # ============ User input field ============
+        # getting users input from UI entry fields
+        sepal_length = float(entry_sepal_length.get())
+        sepal_width = float(entry_sepal_width.get())
+        petal_length = float(entry_petal_length.get())
+        petal_width = float(entry_petal_width.get())
+
+
+        # ============ Predicting using given inputs ============
+        user_input = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+        user_input_scaled = stand_scaler.transform(user_input)
+        prediction = load_model.predict(user_input_scaled)
+        
+
+        # ============ Predicting Output ============
+        messagebox.showinfo("Prediction", f"The predicted flower type is: {prediction[0]}")
+    except ValueError:
+        messagebox.showerror("Input Error", "Please enter valid numerical values")
+
+# ============================================
+# ============ CREATING UI WINDOW ============
+window = tk.Tk()
+window.title("Iris Flower Prediction")
+
+# =============================================
+# ============ ADDING INPUT FIELDS ============
+tk.Label(window, text = "Please enter the length of the sepal in cm: ").grid(row = 0, column = 0)
+entry_sepal_length = tk.Entry(window)
+entry_sepal_length.grid(row = 0, column = 1, padx = 10, pady = 5)
+
+tk.Label(window, text = "Please enter the width of the sepal in cm: ").grid(row = 1, column = 0)
+entry_sepal_width = tk.Entry(window)
+entry_sepal_width.grid(row = 1, column = 1, padx = 10, pady = 5)
+
+tk.Label(window, text = "Please enter the length of the petal in cm:").grid(row = 2, column = 0)
+entry_petal_length = tk.Entry(window)
+entry_petal_length.grid(row = 2, column = 1, padx = 10, pady = 5)
+
+tk.Label(window, text = "Please enter the width of the petal in cm:").grid(row = 3, column = 0)
+entry_petal_width = tk.Entry(window)
+entry_petal_width.grid(row = 3, column = 1, padx = 10, pady = 5)
+
+# Create and place the prediction button
+predict_button = tk.Button(window, text = "Prediction", command = flower_prediction)
+predict_button.grid(row = 5, columnspan = 2, padx = 10, pady = 5)
+
+# Run the Tkinter main loop
+window.mainloop()
+
+# script to run
+# python ClassificationNewRequirements.py
